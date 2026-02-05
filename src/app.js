@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const { testConnection } = require('./config/db');
+const serverRoutes = require('./server');
 
 app.use(express.json());
 
@@ -11,7 +13,22 @@ app.get('/', (req, res) => res.send(
 )
 );
 
+app.use('/', serverRoutes);
 
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(err.status || 500).json({ error: err.message || 'Erro inteiro' });
+});
+
+async function verificarDB() {
+    const resultado = await testConnection();
+    console.log(`Sucesso?: ${resultado.success} e Mensagem: ${resultado.message}`);
+}
+verificarDB();
+
+module.exports = app;
+
+/*
 app.get('/hello', (req, res) =>
     res.send(
         {
@@ -49,10 +66,4 @@ app.get('/alunos/programacao-de-aplicativos/notas', (req, res) =>
         }
     )
 );
-
-app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(err.status || 500).json({ error: err.message || 'Erro inteiro' });
-});
-
-module.exports = app;
+*/
