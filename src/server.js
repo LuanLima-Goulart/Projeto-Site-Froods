@@ -2,25 +2,14 @@ const express = require('express');
 const { pool } = require('./config/db');
 const app = express();
 
-app.get('/clientes', async (req, res) => {
-    try {
-        const [rows] = await pool.execute('SELECT * FROM cliente');
-        res.json(rows);
-    } catch (error) {
-        console.error('Erro ao consultar clientes: ', error);
-        res.status(500).json({error: 'Erro ao consultar produto', details: error.message});
-    }
-});
+const clientesRoutes = require('./routes/clientes');
+const pedidosRoutes = require('./routes/pedidos');
+const relatorioRoutes = require('./routes/relatorio-completo');
+const cardapioRoutes = require('./routes/cardapio.js');
 
-app.get('/pedidos', async (req, res) => {
-    try {
-        const [rows] = await pool.execute('SELECT * FROM pedidos');
-        res.json(rows);
-    } catch (error) {
-        console.error('Erro ao consultar clientes: ', error);
-        res.status(500).json({error: 'Erro ao consultar produto', details: error.message});
-    }
-});
-
+app.use('/clientes', clientesRoutes);
+app.use('/pedidos', pedidosRoutes);
+app.use('relatorio-completo', relatorioRoutes);
+app.use('cardapio', cardapioRoutes);
 
 module.exports = app;
