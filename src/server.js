@@ -9,7 +9,7 @@ const cardapioRoutes = require('./routes/cardapio.js');
 
 app.use('/clientes', clientesRoutes);
 app.use('/pedidos', pedidosRoutes);
-app.use('relatorio-completo', relatorioRoutes);
-app.use('cardapio', cardapioRoutes);
+app.use('/relatorio-completo', relatorioRoutes);
+app.use('/cardapio', cardapioRoutes);
 
 module.exports = app;
