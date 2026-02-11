@@ -2,14 +2,18 @@ const express = require('express');
 const { pool } = require('./config/db');
 const app = express();
 
-const clientesRoutes = require('./routes/clientes');
+const restauranteRoutes = require('./routes/restaurantes');
+const clienteRoutes = require('./routes/clientes');
+const alimentoRoutes = require('./routes/alimentos');
 const pedidosRoutes = require('./routes/pedidos');
-const relatorioRoutes = require('./routes/relatorio-completo');
-const cardapioRoutes = require('./routes/cardapio.js');
+const relatorioRoutes = require('./routes/relatorios');
 
-app.use('/clientes', clientesRoutes);
+app.use('/restaurantes', restauranteRoutes);
+app.use('/clientes', clienteRoutes);
+app.use('/alimentos', alimentoRoutes);
 app.use('/pedidos', pedidosRoutes);
-app.use('/relatorio-completo', relatorioRoutes);
-app.use('/cardapio', cardapioRoutes);
+app.use('/relatorios', relatorioRoutes);
+
+
 
 module.exports = app;

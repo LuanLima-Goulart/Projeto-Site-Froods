@@ -10,13 +10,13 @@ const pool = mysql.createPool({
 });
 
 async function testConnection() {
-    try{
+    try {
         const connection = await pool.getConnection();
         await connection.ping();
         connection.release();
-        return { success: true, message: "Conexão com o banco de dados bem-sucedida"};
+        return { sucess: true, message: "Conexão com o banco de dados bem-sucedida"}
     } catch (error) {
-        return { success: false, message: `Falha na conexão: ${error.message}`};
+        return { sucess: false, message: `Falha na conexão: ${error.message}` };
     }
 }
 

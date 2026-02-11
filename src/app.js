@@ -4,66 +4,16 @@ const { testConnection } = require('./config/db');
 const serverRoutes = require('./server');
 
 app.use(express.json());
+app.get('/', (req, res) => res.send({ status: 'ok', message: 'API funcionando'}
+)); // rota de teste
 
-app.get('/', (req, res) => res.send(
-    {
-        status: 'ok',
-        message: 'API funcionando'
-    }
-)
-);
-
+// uso das rotas definidas em sever.js
 app.use('/', serverRoutes);
-
-app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(err.status || 500).json({ error: err.message || 'Erro inteiro' });
-});
 
 async function verificarDB() {
     const resultado = await testConnection();
-    console.log(`Sucesso?: ${resultado.success} e Mensagem: ${resultado.message}`);
+    console.log(`Sucesso? ${resultado.sucess} e Menssagem: ${resultado.message}`)
 }
 verificarDB();
 
 module.exports = app;
-
-/*
-app.get('/hello', (req, res) =>
-    res.send(
-        {
-            message: 'Hello, World!'
-        }
-    )
-);
-
-app.get('/professores', (req, res) =>
-    res.send(
-        {
-            nome: 'Lucas Sasse',
-            disciplinas: ['Programação de Aplicativos', 'Modelagem de Sistemas']
-        }
-    )
-);
-
-app.get('/alunos/programacao-de-aplicativos', (req, res) =>
-    res.send(
-        {
-            alunos: ['Daniel', 'Joao', 'Luan', 'Lucas']
-        }
-    )
-);
-
-app.get('/alunos/programacao-de-aplicativos/notas', (req, res) =>
-    res.send(
-        {
-            alunos: [
-                { nome: 'Daniel', nota: 8.5 },
-                { nome: 'Joao', nota: 9.0 },
-                { nome: 'Luan', nota: 9.0 },
-                { nome: 'Lucas', nota: 8.0 }
-            ]
-        }
-    )
-);
-*/
