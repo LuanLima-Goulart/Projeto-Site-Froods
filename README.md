@@ -28,3 +28,7 @@
  ### Para iniciar o projeto:
  * npm install
  * npm start
+
+# Apenas uma imagem
+
+![meme](https://github.com/user-attachments/assets/2d4204bb-a77d-4c39-ac7d-922dbf203a15)
