@@ -20,7 +20,7 @@
 ## restaurantes
  * Através dele é possível ver os restaurantes registrados, vendo o id do restaurante, nome, tipo do restaurante, endereço, telefone e cnpj.
 
-# Pasta: src
+# Pasta: 'src'
  * Aqui está o código fonte do projeto. Nele contém todas as pastas já mencionadas acima. O arquivo 'app.js' é responsável por iniciar o servidor, gerenciar as rotas, verificar a conexão com o banco de dados e exportar o app. 
  * O arquivo 'index.js' ele é responsável por colocar o servidor no ar, carrega configurações, a linha 'require('dotenv').config();' é responsável por carregar o arquivo .env, a linha 'const app = require('./app');' é responsável por importar o app, a linha 'const PORT = process.env.PORT || 3001;' é responsável por definir a porta do servidor, a linha 'app.listen(PORT, () => {' é responsável por iniciar o servidor.
  * O arquivo 'server.js' ele funciona como um centralizador de rotas da aplicação, importa as rotas específicas da pasta 'routes', organiza os caminhos, ele define os prefixos para acessar essas rotas e exporta a configuração, ele exporta esse conjunto de rotas configuradas para ser usado pelo 'app.js'.
@@ -37,4 +37,3 @@
 # Sapo
 
 ![meme](https://github.com/user-attachments/assets/2d4204bb-a77d-4c39-ac7d-922dbf203a15)
-![Sapo](assets/sapo.jpg)
