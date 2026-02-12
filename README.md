@@ -1,4 +1,4 @@
-# "PROJETO FROODS"
+# PROJETO FROODS
 
 # Pasta: 'config', arquivo: 'db'
  * Permite a gente ter acesso ao nosso banco de dados e saber se q conecção está funcionando.
