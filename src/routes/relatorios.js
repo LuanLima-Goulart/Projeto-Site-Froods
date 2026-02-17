@@ -3,30 +3,36 @@ const { pool } = require('../config/db');
 const router = express.Router();
 
 // --------------------------------------GET---------------------------------------------------------
-router.get('/', async (req, res) => {
+router.get('/completo', async (req, res) => {
     try {
-        const [rows] = await pool.execute(`
+        const queryRelatorio = `
             SELECT
+                p.idPedido,
                 c.nome AS Cliente,
                 r.nome AS Restaurante,
-                p.idPedido,
                 a.nome AS Alimento,
-                ip.quantidade,
-                ip.precoUnitario,
+                p.quantidade,
+                a.preco AS Preco_Unitario,
+                (p.quantidade * a.preco) AS Valor_Total_Pedido,
+                p.formaPagamento,
                 p.stats AS Status_Entrega
             FROM pedidos p
             INNER JOIN cliente c ON p.idCliente = c.idCliente
-            INNER JOIN itensPedido ip ON p.idPedido = ip.idPedido
-            INNER JOIN alimento a ON ip.idAlimento = a.idAlimento
             INNER JOIN restaurante r ON p.idRestaurante = r.idRestaurante
-        `);
-    if (rows.length === 0) {
-        return res.status(404).json({ erro: 'Produto não encontrado' });
-    }
+            INNER JOIN alimento a ON p.idAlimento = a.idAlimento
+            ORDER BY p.idPedido DESC
+        `;
+
+        const [rows] = await pool.execute(queryRelatorio);
+
+        if (rows.length === 0) {
+            return res.status(404).json({ mensagem: 'Nenhum pedido encontrado para o relatório.' });
+        }
+
         res.json(rows);
     } catch (error) {
-        console.error('Erro ao consultar clientes: ', error);
-        res.status(500).json({erro: 'Erro ao consultar produto', detalhes: error.message});
+        console.error('Erro ao consultar relatório: ', error);
+        res.status(500).json({ erro: 'Erro ao consultar relatório', detalhes: error.message });
     }
 });
 

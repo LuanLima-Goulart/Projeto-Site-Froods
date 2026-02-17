@@ -1,64 +1,118 @@
 # 🍔 Projeto Froods
 
-Bem-vindo ao **Froods**! Este projeto consiste em uma API completa para o gerenciamento de restaurantes, pedidos e clientes. Desenvolvido com foco em escalabilidade e organização, o sistema oferece uma solução backend robusta para aplicações de delivery e gestão de estabelecimentos.
+Bem-vindo ao **Froods**! 🚀
+
+Uma solução **backend completa e robusta** para o gerenciamento inteligente de restaurantes, pedidos e clientes. Construído com foco em **escalabilidade**, **segurança** e **organização**.
 
 ---
 
-## 🚀 Tecnologias Utilizadas
+## 🎯 Objetivo do Projeto
 
-O projeto foi construído utilizando as seguintes tecnologias:
+O **Froods** foi desenvolvido para resolver os desafios comuns na gestão de delivery e estabelecimentos gastronômicos, oferecendo uma **API RESTful** poderosa que interliga restaurantes, clientes e pedidos de forma eficiente.
 
-- **Node.js**: Ambiente de execução JavaScript.
-- **Express**: Framework web rápido e minimalista.
-- **MySQL**: Banco de dados relacional.
-- **Dotenv**: Gerenciamento de variáveis de ambiente.
+### ✨ Diferenciais
+- **Robustez**: Validações detalhadas de dados e regras de negócio complexas.
+- **Segurança**: Prevenção contra deleção de registros com histórico (integridade referencial lógica).
+- **Flexibilidade**: Atualizações dinâmicas de registros.
+
+---
+
+## �️ Tecnologias & Arquitetura
+
+O projeto utiliza uma stack moderna e performática:
+
+| Tecnologia | Descrição |
+| :--- | :--- |
+| **Node.js** | Ambiente de execução JavaScript de alta performance. |
+| **Express** | Framework web rápido e minimalista para criação de rotas e middlewares. |
+| **MySQL** | Banco de dados relacional robusto para integridade dos dados. |
+| **Dotenv** | Gerenciamento seguro de variáveis de ambiente. |
 
 ---
 
 ## 📂 Estrutura do Projeto
 
-A arquitetura do projeto foi organizada para facilitar a manutenção e o entendimento do código:
+A arquitetura foi pensada para facilitar a manutenção e o entendimento do fluxo de dados:
 
-### `config`
-- **db**: Responsável pela conexão com o banco de dados e verificação de integridade da conexão.
+### 🔹 `config`
+- **db.js**: Coração da conexão com o banco de dados. Gerencia pools de conexão e verifica a integridade do acesso.
 
-### `src`
-O núcleo da aplicação.
-- **app.js**: Inicializa o servidor, gerencia middlewares, verifica a conexão com o banco e exporta a instância da aplicação.
-- **index.js**: Ponto de entrada. Carrega as variáveis de ambiente (`.env`), importa o `app` e coloca o servidor no ar na porta definida.
-- **server.js**: Centralizador de rotas. Importa e organiza os endpoints definidos na pasta `routes`.
-
-### `routes`
-Gerenciamento dos endpoints da API:
-- **Alimentos**: CRUD completo (Consultar, Adicionar, Atualizar, Deletar) de itens do cardápio, incluindo preços e vinculação com restaurantes.
-- **Clientes**: Gestão de cadastros de clientes (CPF, Endereço, Contato).
-- **Pedidos**: Controle de fluxo de pedidos, status, pagamentos e vínculo entre cliente e restaurante.
-- **Restaurantes**: Administração das unidades, incluindo dados cadastrais (CNPJ, Endereço).
-- **Relatórios**: Geração de relatórios detalhados contendo informações consolidadas sobre pedidos, clientes e faturamento.
+### 🔹 `src`
+- **app.js**: Inicializa a aplicação, configura middlewares e rotas globais.
+- **server.js**: Centralizador de rotas da API, organizando os endpoints por domínio.
+- **routes/**: Onde a mágica acontece. Cada arquivo representa um domínio da aplicação (Alimentos, Clientes, Pedidos, etc.).
 
 ---
 
-## 🛠️ Como Iniciar
+## 🚀 Funcionalidades Principais (Features)
 
-Para executar este projeto em sua máquina local, siga os passos abaixo:
+### 1. Gestão de Alimentos (`/alimentos`)
+- **CRUD Completo**: Criar, Ler, Atualizar e Deletar itens do cardápio.
+- **Validações Rigorosas**:
+  - Verificação de unicidade de nome (evita duplicidade).
+  - Limites de caracteres para nomes e categorias.
+  - Validação de preço máximo e mínimo.
+- **Segurança na Exclusão**: Impede a remoção de alimentos que já possuem pedidos vinculados, preservando o histórico financeiro.
+
+### 2. Gestão de Restaurantes (`/restaurantes`)
+- Administração completa das unidades.
+- Controle de dados cadastrais como CNPJ e Endereço.
+
+### 3. Gestão de Clientes (`/clientes`)
+- Cadastro e manutenção de perfis de clientes.
+- Histórico de pedidos e informações de contato.
+
+### 4. Controle de Pedidos (`/pedidos`)
+- Fluxo completo de pedidos: do carrinho à entrega.
+- Rastreamento de status e pagamentos.
+
+### 5. Relatórios Estratégicos (`/relatorios`)
+- Geração de métricas de vendas.
+- Análise de desempenho por restaurante ou período.
+
+---
+
+## � Endpoints da API
+
+Aqui estão as principais rotas disponíveis para consumo:
+
+| Método | Rota | Descrição |
+| :--- | :--- | :--- |
+| `GET` | `/alimentos` | Lista todos os alimentos com detalhes do restaurante. |
+| `GET` | `/alimentos/:id` | Busca um alimento específico pelo ID. |
+| `POST` | `/alimentos/adicionar` | Cria um novo alimento (com validações de negócio). |
+| `PUT` | `/alimentos/:id/atualizar` | Atualiza dados de um alimento dinamicamente. |
+| `DELETE` | `/alimentos/:id/deletar` | Remove um alimento (se não houver vendas vinculadas). |
+| ... | ... | *E muito mais para Clientes, Pedidos e Restaurantes.* |
+
+---
+
+## 🏁 Como Executar
+
+Para rodar este projeto localmente:
 
 ### Pré-requisitos
-Certifique-se de ter o **Node.js** e o **npm** instalados.
+- **Node.js** e **npm** instalados.
+- Banco de dados **MySQL** configurado.
 
 ### Instalação
 
-1. Instale as dependências do projeto:
+1. Clone o repositório e instale as dependências:
    ```bash
    npm install
    ```
 
-2. Inicie o servidor:
+2. Configure suas variáveis de ambiente no arquivo `.env`.
+
+3. Inicie o servidor:
    ```bash
    npm start
    ```
 
+Agora a API estará rodando e pronta para receber requisições! 🚀
+
 ---
 
-# Sapo
+# ADM
 
 ![meme](https://github.com/user-attachments/assets/2d4204bb-a77d-4c39-ac7d-922dbf203a15)
